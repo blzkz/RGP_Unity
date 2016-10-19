@@ -6,6 +6,22 @@ public class personaje : MonoBehaviour {
     Rigidbody2D personajeRb;
     Animator personajeAnimator;
 
+    public static personaje pj = null;
+
+    void Awake()
+    {
+        if (pj == null)
+        {
+            pj = this;
+        }
+        else if (pj != this)
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
+
 	// Use this for initialization
 	void Start () {
         personajeRb = GetComponent<Rigidbody2D>();
