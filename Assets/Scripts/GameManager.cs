@@ -23,7 +23,11 @@ public class GameManager : MonoBehaviour {
 
     void iniciaPersonaje()
     {
-        Instantiate(instanciaPersonaje);
+        if (personaje.pj == null)
+        {
+            Instantiate(instanciaPersonaje);
+        }
+
     }
 	// Use this for initialization
 	void Start () {

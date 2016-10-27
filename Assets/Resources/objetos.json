@@ -1,0 +1,21 @@
+{
+  "baseDatos": [
+    {
+      "id": 0,
+      "nombre": "hacha",
+      "value": 45,
+      "damage": 4,
+      "weight": 1,
+      "type": "una mano",
+      "nombreSprite":  "hacha.png"
+    },
+    {
+      "id": 1,
+      "nombre": "espadon",
+      "value": 66,
+      "weight": 1,
+      "type": "dos manos",
+      "nombreSprite": "espadon.png"
+    }
+  ]
+}
