@@ -16,5 +16,10 @@ public class BaseDatosHandler : MonoBehaviour {
     {
         return bd.baseDatos.Find(objeto => objeto.id == id);
     }
+
+    public bool existeObjeto(int id)
+    {
+        return bd.baseDatos.Exists(objeto => objeto.id == id);
+    }
 	
 }
