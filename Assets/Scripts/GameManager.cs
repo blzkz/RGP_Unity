@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instancia = null;
     public GameObject instanciaPersonaje;
+    public GameObject instanciaInventario;
 
     void Awake()
     {
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour {
 
         DontDestroyOnLoad(gameObject);
         iniciaPersonaje();
+        iniciaInventario();
     }
 
     void iniciaPersonaje()
@@ -29,10 +31,22 @@ public class GameManager : MonoBehaviour {
         }
 
     }
-	// Use this for initialization
-	void Start () {
-	
-	}
+
+    void iniciaInventario()
+    {
+        if (Inventario.inv == null)
+        {
+            Instantiate(instanciaInventario);
+        }
+
+    }
+    // Use this for initialization
+    void Start () {
+        Inventario.inv.addObjeto(0);
+        Inventario.inv.addObjeto(1);
+        Inventario.inv.addObjeto(1);
+        Inventario.inv.borraObjeto(1);
+    }
 	
 	// Update is called once per frame
 	void Update () {
