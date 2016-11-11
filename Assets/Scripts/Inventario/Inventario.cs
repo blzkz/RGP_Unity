@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 public class Inventario : MonoBehaviour {
 
@@ -47,6 +48,19 @@ public class Inventario : MonoBehaviour {
         return listaObjetos.Exists(x => x.id == id);
     }
 
+    public void guardarEstado()
+    {
+        string inventarioStringified = JsonUtility.ToJson(this);
+        File.WriteAllText(Application.dataPath + "/Resources/Inventario.json", inventarioStringified);
+    }
+
+    public void cargarEstado()
+    {
+        if (File.Exists(Application.dataPath + "/Resources/Inventario.json")) {
+            string datos = File.ReadAllText(Application.dataPath + "/Resources/Inventario.json");
+            JsonUtility.FromJsonOverwrite(datos, this);
+        }
+    }
 }
 
 [System.Serializable]
