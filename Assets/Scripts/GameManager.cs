@@ -38,18 +38,20 @@ public class GameManager : MonoBehaviour {
         {
             Instantiate(instanciaInventario);
         }
+        Inventario.inv.cargarEstado();
 
     }
     // Use this for initialization
     void Start () {
-        Inventario.inv.addObjeto(0);
-        Inventario.inv.addObjeto(1);
-        Inventario.inv.addObjeto(1);
-        Inventario.inv.borraObjeto(1);
     }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+
+    void OnDestroy()
+    {
+        Inventario.inv.guardarEstado();
+    }
 }
