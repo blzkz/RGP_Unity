@@ -7,6 +7,8 @@ public class Inventario : MonoBehaviour {
 
     public static Inventario inv = null;
     public List<instanciaObjeto> listaObjetos;
+    public int maxNumObj = 5;
+    public BaseDatosHandler handler = null;
 
     void Awake()
     {
@@ -22,6 +24,14 @@ public class Inventario : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
+    void Start()
+    {
+        if (GameManager.instancia != null)
+        {
+            handler = GameManager.instancia.GetComponent<BaseDatosHandler>();
+        }
+    }
+
     void cargarInventario()
     {
         listaObjetos = new List<instanciaObjeto>();
@@ -29,9 +39,24 @@ public class Inventario : MonoBehaviour {
 
     public void addObjeto(int id)
     {
-        if (GameManager.instancia.GetComponent<BaseDatosHandler>().existeObjeto(id))
+        if (handler.existeObjeto(id))
         {
-            listaObjetos.Add(new instanciaObjeto(id, 1));
+            if (handler.esAcumlable(id) && enInventario(id))
+            {
+                listaObjetos.Find(objeto => objeto.id == id).cantidad++;
+            }
+            else if (canAdd(id))
+            {
+                listaObjetos.Add(new instanciaObjeto(id, 1));
+            }
+            else
+            {
+                Debug.Log("Límite máximo de objetos alcanzado.");
+            }
+        }
+        else
+        {
+            Debug.Log("Error al añadir el objeto");
         }
     }
 
@@ -39,7 +64,15 @@ public class Inventario : MonoBehaviour {
     {
         if (enInventario(id))
         {
-            listaObjetos.Remove(listaObjetos.Find(x => x.id == id));
+            instanciaObjeto obj = listaObjetos.Find(objeto => objeto.id == id);
+            if (obj.cantidad > 1)
+            {
+                obj.cantidad--;
+            }
+            else
+            {
+                listaObjetos.Remove(listaObjetos.Find(x => x.id == id));
+            }
         }
     }
 
@@ -60,6 +93,10 @@ public class Inventario : MonoBehaviour {
             string datos = File.ReadAllText(Application.dataPath + "/Resources/Inventario.json");
             JsonUtility.FromJsonOverwrite(datos, this);
         }
+    }
+
+    public bool canAdd(int id) {
+        return this.listaObjetos.Count < this.maxNumObj;
     }
 }
 

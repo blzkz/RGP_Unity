@@ -16,6 +16,15 @@
       "weight": 1,
       "type": "dos manos",
       "nombreSprite": "espadon.png"
+    },
+    {
+      "id": 2,
+      "nombre": "pocion",
+      "value": 6,
+      "weight": 1,
+      "type": "consumible",
+      "nombreSprite": "pocion.png",
+      "acumulable":  true
     }
   ]
 }

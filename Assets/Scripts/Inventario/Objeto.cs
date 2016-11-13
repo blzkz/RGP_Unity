@@ -14,6 +14,7 @@ public class Objeto : ISerializationCallbackReceiver {
     public string type;
     public string nombreSprite;
     public string rutaSprite;
+    public bool acumulable;
 
     void ISerializationCallbackReceiver.OnBeforeSerialize() {}
 

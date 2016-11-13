@@ -23,6 +23,7 @@ public class InventarioEditor : Editor {
             }
 
             diccionario.Keys.CopyTo(opciones, 0);
+            EditorGUILayout.LabelField("Numero objetos: ", contexto.listaObjetos.Count.ToString() + "/" + contexto.maxNumObj);
             EditorGUILayout.LabelField("Objeto", "Cantidad");
             foreach (instanciaObjeto obj in contexto.listaObjetos)
             {
