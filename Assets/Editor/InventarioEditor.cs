@@ -11,40 +11,43 @@ public class InventarioEditor : Editor {
     public override void OnInspectorGUI()
     {
         Inventario contexto = (Inventario)this.target;
-        BaseDatosHandler bbdd = GameManager.instancia.GetComponent<BaseDatosHandler>();
-        string[] opciones = new string[bbdd.bd.baseDatos.Count];
-        Dictionary<string, int> diccionario = new Dictionary<string, int>();
-
-        foreach (Objeto obj in bbdd.bd.baseDatos)
+        if (GameManager.instancia != null)
         {
-            diccionario.Add(obj.nombre, obj.id);
-        }
+            BaseDatosHandler bbdd = GameManager.instancia.GetComponent<BaseDatosHandler>();
+            string[] opciones = new string[bbdd.bd.baseDatos.Count];
+            Dictionary<string, int> diccionario = new Dictionary<string, int>();
 
-        diccionario.Keys.CopyTo(opciones, 0);
-        EditorGUILayout.LabelField("Objeto", "Cantidad");
-        foreach (instanciaObjeto obj in contexto.listaObjetos)
-        {
-            Objeto objActual = bbdd.buscarObjetoPorId(obj.id);
-            EditorGUILayout.LabelField(objActual.nombre, obj.cantidad.ToString());
-        }
-
-        indice = EditorGUILayout.Popup(indice, opciones);
-
-        if (GUILayout.Button("Añadir objeto"))
-        {
-            int idObjeto;
-            if (diccionario.TryGetValue(opciones[indice], out idObjeto))
+            foreach (Objeto obj in bbdd.bd.baseDatos)
             {
-                contexto.addObjeto(idObjeto);
+                diccionario.Add(obj.nombre, obj.id);
             }
-        }
 
-        if (GUILayout.Button("Borrar objeto"))
-        {
-            int idObjeto;
-            if (diccionario.TryGetValue(opciones[indice], out idObjeto))
+            diccionario.Keys.CopyTo(opciones, 0);
+            EditorGUILayout.LabelField("Objeto", "Cantidad");
+            foreach (instanciaObjeto obj in contexto.listaObjetos)
             {
-                contexto.borraObjeto(idObjeto);
+                Objeto objActual = bbdd.buscarObjetoPorId(obj.id);
+                EditorGUILayout.LabelField(objActual.nombre, obj.cantidad.ToString());
+            }
+
+            indice = EditorGUILayout.Popup(indice, opciones);
+
+            if (GUILayout.Button("Añadir objeto"))
+            {
+                int idObjeto;
+                if (diccionario.TryGetValue(opciones[indice], out idObjeto))
+                {
+                    contexto.addObjeto(idObjeto);
+                }
+            }
+
+            if (GUILayout.Button("Borrar objeto"))
+            {
+                int idObjeto;
+                if (diccionario.TryGetValue(opciones[indice], out idObjeto))
+                {
+                    contexto.borraObjeto(idObjeto);
+                }
             }
         }
     }
