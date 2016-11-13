@@ -21,5 +21,10 @@ public class BaseDatosHandler : MonoBehaviour {
     {
         return bd.baseDatos.Exists(objeto => objeto.id == id);
     }
-	
+
+    public bool esAcumlable(int id)
+    {
+        Objeto obj = bd.baseDatos.Find(objeto => objeto.id == id);
+        return obj.acumulable;
+    }
 }
