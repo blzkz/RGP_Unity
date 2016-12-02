@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour {
     public static GameManager instancia = null;
     public GameObject instanciaPersonaje;
     public GameObject instanciaInventario;
+    public GameObject prefabInvUI;
+    private GameObject inventarioUI;
 
     void Awake()
     {
@@ -41,6 +43,26 @@ public class GameManager : MonoBehaviour {
         Inventario.inv.cargarEstado();
 
     }
+
+    void toggleInventario()
+    {
+        if (Inventario.inv == null)
+        {
+            iniciaInventario();
+        }
+
+        if (inventarioUI == null)
+        {
+            Time.timeScale = 0.0f;
+            inventarioUI = Instantiate(prefabInvUI);
+        }
+        else
+        {
+            Destroy(inventarioUI);
+            Time.timeScale = 1.0f;
+        }
+    }
+
     // Use this for initialization
     void Start () {
     }
@@ -49,6 +71,14 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    void LateUpdate ()
+    {
+        if (Input.GetButtonDown("Inventario"))
+        {
+            toggleInventario();
+        }
+    }
 
     void OnDestroy()
     {
