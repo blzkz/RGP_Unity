@@ -18,12 +18,18 @@ public class cargaObjetos : MonoBehaviour {
 	
     void pintaObjetos()
     {
+        int posicion = 0;
         foreach (instanciaObjeto obj in inventario.listaObjetos)
         {
             GameObject instanciaObjeto = Instantiate(objeto);
+            eventosObjeto ev = instanciaObjeto.GetComponent<eventosObjeto>();
+            ev.id = obj.id;
+            ev.posicion = posicion;
             Objeto detalleObjeto = handler.buscarObjetoPorId(obj.id);
             instanciaObjeto.transform.GetComponentInChildren<Text>().text = detalleObjeto.nombre;
             instanciaObjeto.transform.SetParent(this.transform);
+
+            posicion++;
         }
     }
 	// Update is called once per frame

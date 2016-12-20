@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 
 public class GameManager : MonoBehaviour {
 
@@ -7,7 +9,8 @@ public class GameManager : MonoBehaviour {
     public GameObject instanciaPersonaje;
     public GameObject instanciaInventario;
     public GameObject prefabInvUI;
-    private GameObject inventarioUI;
+    public GameObject inventarioUI;
+    public Dictionary<int, Sprite> spritesObjeto;
 
     void Awake()
     {
@@ -23,6 +26,19 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
         iniciaPersonaje();
         iniciaInventario();
+    }
+
+    void cargaSpritesObjeto()
+    {
+        spritesObjeto = new Dictionary<int, Sprite>();
+        foreach(Objeto obj in Inventario.inv.handler.bd.baseDatos)
+        {
+            string ruta = Application.dataPath + "/Resources/" + obj.rutaSprite + ".png";
+            if (File.Exists(ruta)) {
+                Sprite sprite = Resources.Load<Sprite>(obj.rutaSprite);
+                spritesObjeto.Add(obj.id, sprite);
+            }
+        }
     }
 
     void iniciaPersonaje()
@@ -65,6 +81,7 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        cargaSpritesObjeto();
     }
 	
 	// Update is called once per frame
