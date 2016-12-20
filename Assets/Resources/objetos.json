@@ -7,7 +7,7 @@
       "damage": 4,
       "weight": 1,
       "type": "una mano",
-      "nombreSprite":  "hacha.png"
+      "nombreSprite":  "hacha"
     },
     {
       "id": 1,
@@ -15,7 +15,7 @@
       "value": 66,
       "weight": 1,
       "type": "dos manos",
-      "nombreSprite": "espadon.png"
+      "nombreSprite": "espadon"
     },
     {
       "id": 2,
@@ -23,7 +23,7 @@
       "value": 6,
       "weight": 1,
       "type": "consumible",
-      "nombreSprite": "pocion.png",
+      "nombreSprite": "pocion",
       "acumulable":  true
     }
   ]
