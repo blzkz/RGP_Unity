@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour {
     public GameObject instanciaPersonaje;
     public GameObject instanciaInventario;
     public GameObject prefabInvUI;
-    private GameObject inventarioUI;
+    public GameObject inventarioUI;
 
     void Awake()
     {
