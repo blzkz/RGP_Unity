@@ -27,6 +27,15 @@ public class menuObjetoInfo : MonoBehaviour {
         Destroy(objetoUI);
         this.gameObject.SetActive(false);
     }
+
+    public void equiparObjeto()
+    {
+        if (personaje.pj != null)
+        {
+            personaje.pj.equipaObjeto(this.id);
+        }
+        this.gameObject.SetActive(false);
+    }
 	// Use this for initialization
 	void Start () {
 	

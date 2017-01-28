@@ -6,15 +6,16 @@
       "value": 45,
       "damage": 4,
       "weight": 1,
-      "type": "una mano",
+      "type": "weapon",
       "nombreSprite":  "hacha"
     },
     {
       "id": 1,
       "nombre": "espadon",
       "value": 66,
+      "damage": 10,
       "weight": 1,
-      "type": "dos manos",
+      "type": "weapon",
       "nombreSprite": "espadon"
     },
     {
