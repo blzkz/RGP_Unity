@@ -6,7 +6,7 @@ using System;
 [System.Serializable]
 public class Objeto : ISerializationCallbackReceiver {
 
-    public int id;
+    public int id = -1;
     public string nombre;
     public int value;
     public int damage;
