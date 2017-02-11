@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using CommonTools;
 
 public class menuObjetoInfo : MonoBehaviour {
 
@@ -8,6 +9,13 @@ public class menuObjetoInfo : MonoBehaviour {
     public int posicion;
     public GameObject objetoUI;
     public GameObject objetoEscenaPrefab;
+    private Transform equipoUI = null;
+
+    void Awake()
+    {
+        Transform child = GameManager.instancia.inventarioUI.transform.GetChild(0);
+        equipoUI = CommonTools.GameObjectTools.getChildByName(child, "Equipo");
+    }
 
     public void soltarObjeto()
     {
@@ -33,6 +41,18 @@ public class menuObjetoInfo : MonoBehaviour {
         if (personaje.pj != null)
         {
             personaje.pj.equipaObjeto(this.id);
+            if (this.equipoUI != null)
+            {
+                Sprite sprite = new Sprite();
+                GameManager.instancia.spritesObjeto.TryGetValue(id, out sprite);
+                GameObject armaObjeto = CommonTools.GameObjectTools.getChildByName(equipoUI, "Arma").gameObject;
+                armaObjeto.transform.GetChild(0).GetComponent<Image>().color = new Color(256f, 256f, 256f, 256f);
+                armaObjeto.transform.GetChild(0).GetComponent<Image>().sprite = sprite;
+                Inventario.inv.borraObjeto(this.id);
+                Inventario.inv.addObjeto(personaje.pj.armaPrevia);
+                GameManager.instancia.inventarioUI.GetComponentInChildren<cargaObjetos>().addObjeto(personaje.pj.armaPrevia);
+            }
+            Destroy(objetoUI);
         }
         this.gameObject.SetActive(false);
     }

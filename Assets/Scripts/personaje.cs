@@ -22,7 +22,9 @@ public class personaje : MonoBehaviour {
 
     public int danoTotal;
 
-    private Objeto arma;
+    public Objeto arma { get; private set; }
+
+    public int armaPrevia;
 
     void Awake()
     {
@@ -90,10 +92,10 @@ public class personaje : MonoBehaviour {
 
     private void equipaArma(Objeto nuevaArma)
     {
-        Objeto armaPrevia = null;
+        this.armaPrevia = -1;
         if (arma != null)
         {
-            armaPrevia = arma;
+            armaPrevia = this.arma.id;
             this.sueltaArma();
         }
 
