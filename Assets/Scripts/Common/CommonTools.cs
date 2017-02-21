@@ -3,6 +3,12 @@ using System.Collections;
 
 namespace CommonTools
 {
+    enum Tipos
+    {
+        weapon,
+        consumible
+    }
+
     public static class GameObjectTools {
         public static Transform getChildByName(Transform trans, string name)
         {

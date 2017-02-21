@@ -51,6 +51,7 @@ public class menuObjetoInfo : MonoBehaviour {
                 Inventario.inv.borraObjeto(this.id);
                 Inventario.inv.addObjeto(personaje.pj.armaPrevia);
                 GameManager.instancia.inventarioUI.GetComponentInChildren<cargaObjetos>().addObjeto(personaje.pj.armaPrevia);
+                GameManager.instancia.inventarioUI.GetComponentInChildren<statsUI>().updateItem(this.id, personaje.pj.armaPrevia);
             }
             Destroy(objetoUI);
         }
