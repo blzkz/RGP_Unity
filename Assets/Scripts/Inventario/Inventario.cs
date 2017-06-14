@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System;
+using CommonTools;
 
 public class Inventario : MonoBehaviour {
 
@@ -17,15 +18,26 @@ public class Inventario : MonoBehaviour {
         }
     }
 
+    private string savePath;
+    private string sLlave = "loquequieras";
+
+    [NonSerialized]
     public int maxNumObj = 5;
-    public BaseDatosHandler handler = null;
+    [NonSerialized]
+    public BaseDatosHandler handler;
+    [NonSerialized]
     public GameObject menuObjeto;
 
     void Awake()
     {
         if (inv == null)
         {
+            this.savePath = Application.dataPath + "/Resources/Inventario.sav";
             inv = this;
+            if(GameManager.instancia != null)
+            {
+                handler = GameManager.instancia.GetComponent<BaseDatosHandler>();
+            }
         }
         else if (inv != this)
         {
@@ -95,14 +107,23 @@ public class Inventario : MonoBehaviour {
     public void guardarEstado()
     {
         string inventarioStringified = JsonUtility.ToJson(this);
-        File.WriteAllText(Application.dataPath + "/Resources/Inventario.json", inventarioStringified);
+        CryptoTools.cifrar(inventarioStringified, this.sLlave, this.savePath);
     }
 
     public void cargarEstado()
     {
-        if (File.Exists(Application.dataPath + "/Resources/Inventario.json")) {
-            string datos = File.ReadAllText(Application.dataPath + "/Resources/Inventario.json");
-            JsonUtility.FromJsonOverwrite(datos, this);
+        try
+        {
+            if (File.Exists(this.savePath))
+            {
+                string datos = CryptoTools.descifrar(this.sLlave, this.savePath);
+                JsonUtility.FromJsonOverwrite(datos, this);
+            }
+        }
+        catch(ArgumentException e)
+        {
+            Debug.LogError(e.Message);
+            Debug.LogError("Llave borrada/fichero erróneo");
         }
     }
 
